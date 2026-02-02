@@ -179,11 +179,35 @@
       text-align: center;
       cursor: pointer;
       transition: transform 0.3s ease;
+      outline: none !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    @keyframes fade-up {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .letter img {
       max-width: 80%;
       width: 450px;
+      opacity: 0;
+      &:nth-of-type(1) {
+        animation: 0.8s 1.2s fade-up forwards;
+      }
+      &:nth-of-type(2) {
+        animation: 0.8s 1.6s fade-up forwards;
+      }
     }
 
     .letter:hover {
@@ -220,13 +244,14 @@
 
   <div class="letter-overlay" id="letterOverlay">
     <div class="letter">
-      <img src="./assets/letter.png" alt="letter">
+      <img src="./assets/letters.png" alt="letter">
+      <img class="letter-graphic" src="./assets/letter.png" alt="letter">
     </div>
   </div>
 
   <div class="viewport" id="viewport">
     <!-- SCREEN 1 -->
-    <section class="screen screen1" data-aos="fade-in">
+    <section class="screen screen1" data-aos="fade-up">
       <div class="card">
         <h1 data-aos="fade-in" data-aos-delay="400">
           ΣΕΒΑΣΜΙΟΤΑΤΗ κυρία Μυρτώ θα μου κάνατε την τιμή να είστε το ταίρι μου
@@ -333,7 +358,7 @@
     });
 
     const letterOverlay = document.getElementById('letterOverlay');
-    letterOverlay.addEventListener('click', () => {
+    letterOverlay.querySelector('.letter-graphic').addEventListener('click', () => {
       letterOverlay.classList.add('hidden');
 
       // let AOS animate AFTER reveal
